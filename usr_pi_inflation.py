@@ -74,6 +74,7 @@ phi_NN_factor = phi_NN_USR1*((1+6/phi_N_USR1**2)*(V_phi_USR1(phi_USR1)/V_USR1(ph
 other = (phi_N_USR1**2-6)*(V_phi_phi_USR1(phi_USR1)/V_USR1(phi_USR1)-(V_phi_USR1(phi_USR1)/V_USR1(phi_USR1))**2)
 e3_USR1 = (phi_NN_factor + other)/e2_USR1
 plt.plot(N_USR1[4:58], e3_USR1[4:58], label = "$\epsilon_3$")
+plt.ylim(-100,100)
 #plt.yscale('log')
 plt.legend()
 plt.show()
@@ -208,6 +209,7 @@ other = (phi_N_**2-6)*(V_phi_phi_USR2(phi_)/V_USR2(phi_)-(V_phi_USR2(phi_)/V_USR
 e3_USR2 = (phi_NN_factor + other)/e2_USR2
 
 plt.plot(N_[500:], e3_USR2[500:], label = "$\epsilon_3$")
+plt.ylim(-100,100)
 #plt.yscale('log')
 plt.legend()
 plt.show()
@@ -215,7 +217,7 @@ plt.show()
 fig = plt.figure()
 gs = fig.add_gridspec(3, hspace = 0)
 ax1, ax2, ax3 = gs.subplots(sharex = True)
-fig.suptitle("Variation of $\epsilon_1$ and $\epsilon_2$ for USR1 and USR2")
+fig.suptitle("Variation of $\epsilon_1$, $\epsilon_2$ and $\epsilon_3$ for USR1 and USR2")
 
 ax1.set_yscale('log')
 ax1.plot(N_USR1[4:58], e1_USR1[4:58], c = 'r')
@@ -227,10 +229,12 @@ ax2.plot(N_[500:], e2_USR2[500:], c = 'b', linestyle = 'dashed')
 ax2.set_ylabel("$\epsilon_2$")
 
 ax3.plot(N_USR1[4:58], e3_USR1[4:58], c = 'g')
+ax3.plot(N_[500:], e3_USR2[500:], c = 'g', linestyle = 'dashed')
+ax3.set_ylim(-100,100)
 ax3.set_xlabel("N")
 ax3.set_ylabel("$\epsilon_3$")
-
-fig.show()
+fig.savefig("slow_roll_params_USR.png")
+plt.show()
 
 #%%
 #PI1
@@ -302,6 +306,7 @@ c = phi_N_PI1*(V_phi_phi_PI1(phi_PI1)/V_PI1(phi_PI1) - (V_phi_PI1(phi_PI1)/V_PI1
 phi_NNN_PI1 = a + b*c
 e3_PI1 = phi_NNN_PI1/phi_NN_PI1 - phi_NN_PI1/phi_N_PI1
 plt.plot(N_PI1[500:], e3_PI1[500:], label = "$\epsilon_3$")
+plt.ylim(-100,100)
 #plt.yscale('log')
 plt.legend()
 plt.show()
@@ -375,6 +380,7 @@ c = phi_N_PI2*(V_phi_phi_PI2(phi_PI2)/V_PI1(phi_PI2) - (V_phi_PI2(phi_PI2)/V_PI2
 phi_NNN_PI2 = a + b*c
 e3_PI2 = phi_NNN_PI2/phi_NN_PI2 - phi_NN_PI2/phi_N_PI2
 plt.plot(N_PI2[500:], e3_PI2[500:], label = "$\epsilon_3$")
+plt.ylim(-100,100)
 #plt.yscale('log')
 plt.legend()
 plt.show()
@@ -529,30 +535,53 @@ e3_PI3 = d_e2_PI3_dN/e2_PI3
 # b_term = (phi_N_PI3**3 - 6*phi_N_PI3)/(2*phi_NN_PI3)*(V_phi_phi_PI3(phi_PI3)/V_PI3(phi_PI3) - (V_phi_PI3(phi_PI3)/V_PI3(phi_PI3))**2)
 # e3_PI3 = a_term + b_term
 plt.plot(N_PI3[10000:], e3_PI3[10000:], label = "$\epsilon_3$")
+plt.ylim(-100,100)
 plt.xlabel("$N$")
 plt.ylabel("$\epsilon_3(N)$")
 plt.legend()
 plt.show()
 # %%
-fig = plt.figure(1)
-gs1 = fig.add_gridspec(2, hspace = 0)
-ax4, ax5 = gs1.subplots(sharex = True)
-fig.suptitle("Variation of $\epsilon_1$ and $\epsilon_2$ for PI1, PI2 and PI3")
+fig = plt.figure()
+gs1 = fig.add_gridspec(3, hspace = 0)
+ax1, ax2, ax3 = gs1.subplots(sharex = True)
+fig.suptitle("Variation of $\epsilon_1$, $\epsilon_2$ and $\epsilon_3$ for PI1, PI2 and PI3")
 
-ax4.plot(N_PI1[100:], e1_PI1[100:], 'r')
-ax4.plot(N_PI2[100:], e1_PI2[100:], '--', 'r')
-ax4.plot(N_PI3[10000:], e1_PI3[10000:], '.', 'r')
-ax4.set_ylabel("$\epsilon_1$")
-ax4.set_yscale('log')
+ax1.set_yscale('log')
+ax1.plot(N_PI1[100:], e1_PI1[100:], c = 'r')
+ax1.plot(N_PI2[100:], e1_PI2[100:], c = 'r', linestyle = 'dashed')
+ax1.plot(N_PI3[10000:], e1_PI3[10000:], c = 'r', linestyle = 'dotted')
+ax1.set_ylabel("$\epsilon_1$")
 
-ax5.plot(N_PI1[100:], e2_PI1[100:], 'b')
-ax5.plot(N_PI2[100:], e2_PI2[100:], '--', 'b')
-ax5.plot(N_PI3[10000:], e2_PI3[10000:], '.', 'b')
-ax5.set_ylabel("$\epsilon_2$")
+ax2.plot(N_PI1[100:], e2_PI1[100:], c = 'b')
+ax2.plot(N_PI2[100:], e2_PI2[100:], c = 'b', linestyle = 'dashed')
+ax2.plot(N_PI3[10000:], e2_PI3[10000:], c = 'b', linestyle = 'dotted')
+ax2.set_ylabel("$\epsilon_2$")
 
-# ax6.plot(N_USR1[4:58], e3_USR1[4:58], c = 'g')
-# ax6.set_xlabel("N")
-# ax6.set_ylabel("$\epsilon_3$")
-
-fig.show()
+ax3.plot(N_PI1[100:], e3_PI1[100:], c = 'g')
+ax3.plot(N_PI2[100:], e3_PI2[100:], c = 'g', linestyle = 'dashed')
+ax3.plot(N_PI3[10000:], e3_PI3[10000:], c = 'g', linestyle = 'dotted')
+ax3.set_ylim(-100,100)
+ax3.set_xlabel("N")
+ax3.set_ylabel("$\epsilon_3$")
+fig.savefig("slow_roll_params_PI.png")
 # %%
+# fig = plt.figure()
+# gs = fig.add_gridspec(3, hspace = 0)
+# ax1, ax2, ax3 = gs.subplots(sharex = True)
+# fig.suptitle("Variation of $\epsilon_1$ and $\epsilon_2$ for USR1 and USR2")
+
+# ax1.set_yscale('log')
+# ax1.plot(N_USR1[4:58], e1_USR1[4:58], c = 'r')
+# ax1.plot(N_[500:], e1_USR2[500:], c = 'r', linestyle = 'dashed')
+# ax1.set_ylabel("$\epsilon_1$")
+
+# ax2.plot(N_USR1[4:58], e2_USR1[4:58], c = 'b')
+# ax2.plot(N_[500:], e2_USR2[500:], c = 'b', linestyle = 'dashed')
+# ax2.set_ylabel("$\epsilon_2$")
+
+# ax3.plot(N_USR1[4:58], e3_USR1[4:58], c = 'g')
+# ax3.plot(N_[500:], e3_USR2[500:], c = 'g', linestyle = 'dashed')
+# ax3.set_ylim(-100,100)
+# ax3.set_xlabel("N")
+# ax3.set_ylabel("$\epsilon_3$")
+# plt.show()
